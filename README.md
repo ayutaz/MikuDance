@@ -36,6 +36,16 @@ conda activate MikuDance
 pip install -r requirements.txt  
 ```
 
+**Windows + uv users:** Official `triton` wheels are not published for `win_amd64`, so use the Windows-specific requirement set that replaces it with `triton-windows`. A typical GPU setup looks like:
+
+```powershell
+uv venv --python 3.10 .venv
+uv pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu117 --python .venv
+uv pip install -r requirements.windows.txt --python .venv
+```
+
+`requirements.windows.txt` keeps the same pinned versions as `requirements.txt` but adds `triton-windows==3.5.1.post21`, which enables Flash-Attention style kernels on CUDA 11.7 GPUs under Windows.
+
 ## Download Weights
 
 **Automatically downloading**: You can run the following command to download weights automatically:
